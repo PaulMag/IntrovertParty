@@ -1,6 +1,11 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+#Vscode specific files
+.vscode/
+
+IntrovertAtParty.code-workspace
+
 # Visual Studio 2015 database file
 *.VC.db
 
@@ -75,3 +80,6 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Config/DefaultEngine.ini
+Config/DefaultEngine.ini
+Config/DefaultEngine.ini
