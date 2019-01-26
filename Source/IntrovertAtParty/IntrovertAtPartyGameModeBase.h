@@ -6,12 +6,10 @@
 #include "GameFramework/GameModeBase.h"
 #include "IntrovertAtPartyGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class INTROVERTATPARTY_API AIntrovertAtPartyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
 };
+
