@@ -29,16 +29,26 @@ void ANPCController::BeginPlay()
 
 void ANPCController::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult & Result)
 {
-	//paceToRandomPoint();
+	float waitTime = FMath::RandRange(2.f, 5.f);
+	GetWorldTimerManager().SetTimer(moveTimerHandle, this, &ANPCController::paceToRandomPoint, waitTime, false);
 }
 
 void ANPCController::paceToRandomPoint()
 {
-	float direction = FMath::RandRange(0.f, 2 * PI);
-	float distance = FMath::RandRange(100.f, 300.f);
-	target.X = cos(direction) * distance;
-	target.Y = sin(direction) * distance;
-	target += pawn->GetActorLocation();
+	if (FMath::RandRange(0.f, 100.f) < 50.)
+	{
+		target.X = FMath::RandRange(-1000.f, 1000.f);
+		target.Y = FMath::RandRange(-1000.f, 1000.f);
+		//target += pawn->GetActorLocation();
+	}
+	else
+	{
+		float direction = FMath::RandRange(0.f, 2 * PI);
+		float distance = FMath::RandRange(100.f, 1000.f);
+		target.X = cos(direction) * distance;
+		target.Y = sin(direction) * distance;
+		//target += pawn->GetActorLocation();
+	}
 	UE_LOG(LogTemp, Warning, TEXT("NPC: Move started to (%f, %f)"), target.X, target.Y);
-	MoveToLocation(target, 5);
+	MoveToLocation(target, 100.);
 }
