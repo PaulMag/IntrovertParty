@@ -19,10 +19,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//Handles moving backward and forward
+	//UFUNCTION()
+	//void MoveForward(float AxisInput);
+	//Handles strafing
+	//UFUNCTION()
+	//void MoveRight(float AxisInput);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -34,6 +41,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
 		bool checkingWatch;
+
+	/////////////////////////////////
+	// ===== MOVEMENT MECHANICS =====
+	void MoveForward(float Value);
+
+	void MoveRight(float Value);
+
 
 
 };
