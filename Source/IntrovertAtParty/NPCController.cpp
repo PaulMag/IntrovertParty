@@ -6,6 +6,7 @@
 #include "NPCPawn.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "Engine/World.h"
 
 
 void ANPCController::BeginPlay()
