@@ -13,7 +13,7 @@ ATheIntrovert::ATheIntrovert()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	InitialStressLevel = 100.f;
+	InitialStressLevel = 10.f;
 	CurrentStressLevel = InitialStressLevel;
 	// Various variables
 	checkingWatch = false;
@@ -25,6 +25,15 @@ void ATheIntrovert::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Fill array with all NPCs.
+	TArray<AActor*> foundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANPCPawn::StaticClass(), foundActors);
+	ANPCPawn* foundActor;
+	for (int i = 0; i < foundActors.Num(); i++)
+	{
+		foundActor = Cast<ANPCPawn>(foundActors[i]);
+		allNPCs.Add(foundActor);
+	}
 }
 
 // Called every frame
@@ -32,7 +41,9 @@ void ATheIntrovert::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UpdateCurrentStressLevel(-DeltaTime * 0.0f * (InitialStressLevel));
+	calculatePercievedAmbientLoudness();
+	UpdateCurrentStressLevel();
+	UpdateCurrentAwkwardnessLevel();
 }
 
 // Called to bind functionality to input
@@ -53,6 +64,18 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
+}
+
+void ATheIntrovert::calculatePercievedAmbientLoudness()
+{
+	float loudness = 0;
+	float distance;
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		loudness += allNPCs[i]->loudness / distance;
+	}
+	percievedAmbientLoudness = loudness;
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -130,8 +153,14 @@ float ATheIntrovert::GetCurrentStressLevel()
 	return CurrentStressLevel;
 }
 
-void ATheIntrovert::UpdateCurrentStressLevel(float StressLevel)
+void ATheIntrovert::UpdateCurrentStressLevel()
 {
-	CurrentStressLevel = CurrentStressLevel + StressLevel;
+	CurrentStressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds;
 }
+
+void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
+{
+	CurrentAwkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
+}
+
 
