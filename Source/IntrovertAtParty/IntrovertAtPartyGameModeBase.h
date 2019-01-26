@@ -43,6 +43,17 @@ public:
 		FString stringHours;
 
 	///////////////////////////////////////
+	// ==========|Goal System|===========
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasCalled;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasUsedBathroom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasReturnedComic;
+
+	///////////////////////////////////////
 	// ==========|Game Systems|===========
 
 	bool gameOver;
