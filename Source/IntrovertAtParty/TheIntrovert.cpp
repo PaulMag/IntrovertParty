@@ -4,6 +4,9 @@
 #include "Runtime/Engine/Classes/Components/InputComponent.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+
+
 // Sets default values
 ATheIntrovert::ATheIntrovert()
 {
@@ -12,6 +15,7 @@ ATheIntrovert::ATheIntrovert()
 
 	// Various variables
 	checkingWatch = false;
+
 }
 
 // Called when the game starts or when spawned
@@ -38,9 +42,14 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("CheckWatch", IE_Pressed, this, &ATheIntrovert::CheckWatchStart);
 	PlayerInputComponent->BindAction("CheckWatch", IE_Released, this, &ATheIntrovert::CheckWatchStop);
 
-	//Set up movement key bindings
+	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATheIntrovert::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ATheIntrovert::MoveRight);
+
+	PlayerInputComponent->BindAxis("Turn", this, &ATheIntrovert::AddControllerYawInput);
+
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -62,6 +71,18 @@ void ATheIntrovert::CheckWatchStop()
 	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::Printf(TEXT("NO WATCH")));
 }
 
+void ATheIntrovert::SprintStart()
+{
+	sprinting = true;
+	UE_LOG(LogTemp, Warning, TEXT("Sprinting"));
+}
+
+void ATheIntrovert::SprintStop()
+{
+	sprinting = false;
+	UE_LOG(LogTemp, Warning, TEXT("Stopped Sprinting"));
+}
+
 void ATheIntrovert::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -71,7 +92,15 @@ void ATheIntrovert::MoveForward(float Value)
 
 		// Add movement in decided direction
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
-		AddMovementInput(Direction, Value);
+		if (sprinting == true)
+		{
+			Value *= SprintSpeedMultiplier;
+		}
+		else
+		{
+			Value *= 1;
+		}
+		AddActorLocalOffset(FVector(Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0, 0));
 	}
 }
 
@@ -83,6 +112,7 @@ void ATheIntrovert::MoveRight(float Value)
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
 		// Add movement in decided direction
-		AddMovementInput(Direction, Value);
+		AddActorLocalOffset(FVector(0, Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0));
 	}
 }
+
