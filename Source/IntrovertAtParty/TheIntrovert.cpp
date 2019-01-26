@@ -38,9 +38,14 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("CheckWatch", IE_Pressed, this, &ATheIntrovert::CheckWatchStart);
 	PlayerInputComponent->BindAction("CheckWatch", IE_Released, this, &ATheIntrovert::CheckWatchStop);
 
-	//Set up movement key bindings
+	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATheIntrovert::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ATheIntrovert::MoveRight);
+
+	PlayerInputComponent->BindAxis("Turn", this, &ATheIntrovert::AddControllerYawInput);
+
+
+	
 }
 
 void ATheIntrovert::CheckWatchStart()
