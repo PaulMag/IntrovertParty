@@ -19,8 +19,10 @@ class INTROVERTATPARTY_API ANPCController : public AAIController
 	
 public:
 	ANPCPawn* pawn;
+	TArray<ABaseCharacter*> allCharacters;
 	ABaseCharacter* targetActor;
 	FVector target;
+	FTimerHandle moveTimerHandle;
 
 	virtual void BeginPlay() override;
 	void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) override;
