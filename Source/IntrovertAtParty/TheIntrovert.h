@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "NPCPawn.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Engine.h"
@@ -14,6 +16,8 @@ class INTROVERTATPARTY_API ATheIntrovert : public ACharacter
 	GENERATED_BODY()
 
 public:
+	TArray<ANPCPawn*> allNPCs;
+
 	// Sets default values for this character's properties
 	ATheIntrovert();
 
@@ -27,7 +31,10 @@ public:
 
 	//* @param Stress Level: This is the amount to change the players stress level by. it can be either positive or negetive. 
 	UFUNCTION (BlueprintCallable, Category = "Stress")
-	void UpdateCurrentStressLevel (float StressLevel);
+	void UpdateCurrentStressLevel();
+
+	UFUNCTION(BlueprintCallable, Category = "Awkwardness")
+	void UpdateCurrentAwkwardnessLevel();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -44,8 +51,13 @@ public:
 	float InitialStressLevel;
 
 	//The players current stress level
-	UPROPERTY(EditAnywhere, Category = "Stress")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float CurrentStressLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float CurrentAwkwardnessLevel;
+
+
 	//////////////////////////////
 	// ===== WATCH MECHANICS =====
 	void CheckWatchStart();
