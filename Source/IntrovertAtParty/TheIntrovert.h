@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine.h"
 #include "TheIntrovert.generated.h"
+
 
 UCLASS()
 class INTROVERTATPARTY_API ATheIntrovert : public ACharacter
@@ -14,6 +16,18 @@ class INTROVERTATPARTY_API ATheIntrovert : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ATheIntrovert();
+
+	//Accsesor function for initial stress level
+	UFUNCTION (BlueprintPure, Category = "Stress")
+	float GetInitialStressLevel();
+
+	//Accsesor function for current stress level
+	UFUNCTION (BlueprintPure, Category = "Stress")
+	float GetCurrentStressLevel();
+
+	//* @param Stress Level: This is the amount to change the players stress level by. it can be either positive or negetive. 
+	UFUNCTION (BlueprintCallable, Category = "Stress")
+	void UpdateCurrentStressLevel (float StressLevel);
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,4 +40,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	//** STRESS O'METER **//
+	//The Players initial stress level
+	UPROPERTY(EditAnywhere, Category = "Stress")
+	float InitialStressLevel;
+
+	//The players current stress level
+	UPROPERTY(EditAnywhere, Category = "Stress")
+	float CurrentStressLevel;
 };
