@@ -12,6 +12,8 @@ ATheIntrovert::ATheIntrovert()
 
 	// Various variables
 	checkingWatch = false;
+
+	SprintSpeedMultiplier = 2.0f;
 }
 
 // Called when the game starts or when spawned
@@ -44,8 +46,8 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAxis("Turn", this, &ATheIntrovert::AddControllerYawInput);
 
-
-	
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -90,4 +92,14 @@ void ATheIntrovert::MoveRight(float Value)
 		// Add movement in decided direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void ATheIntrovert::SprintStart()
+{
+	GetCharacterMovement()->MaxWalkSpeed *= SprintSpeedMultiplier;
+}
+
+void ATheIntrovert::SprintStop()
+{
+	GetCharacterMovement()->MaxWalkSpeed /= SprintSpeedMultiplier;
 }

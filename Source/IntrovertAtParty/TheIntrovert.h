@@ -19,13 +19,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//Handles moving backward and forward
-	//UFUNCTION()
-	//void MoveForward(float AxisInput);
-	//Handles strafing
-	//UFUNCTION()
-	//void MoveRight(float AxisInput);
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -47,6 +40,15 @@ public:
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Movement: Walking")
+	float SprintSpeedMultiplier;
+	void SprintStart();
+
+	void SprintStop();
+
+	//bool sprinting;
+
 
 
 
