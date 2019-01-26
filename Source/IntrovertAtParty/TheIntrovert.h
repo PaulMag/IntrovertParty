@@ -42,12 +42,14 @@ public:
 	void MoveRight(float Value);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Movement: Walking")
-	float SprintSpeedMultiplier;
+	float SprintSpeedMultiplier = 2.0f;
+	float walkSpeed = 400;
+	
 	void SprintStart();
 
 	void SprintStop();
 
-	//bool sprinting;
+	bool sprinting;
 
 
 
