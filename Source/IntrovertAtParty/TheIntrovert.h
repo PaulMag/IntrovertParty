@@ -16,65 +16,44 @@ class INTROVERTATPARTY_API ATheIntrovert : public ACharacter
 	GENERATED_BODY()
 
 public:
-	TArray<ANPCPawn*> allNPCs;
+	TArray<ANPCPawn*> allNPCs;  // list of all NPC characters
 
-	// Sets default values for this character's properties
 	ATheIntrovert();
-
-	//Accsesor function for initial stress level
-	UFUNCTION (BlueprintPure, Category = "Stress")
-	float GetInitialStressLevel();
-
-	//Accsesor function for current stress level
-	UFUNCTION (BlueprintPure, Category = "Stress")
-	float GetCurrentStressLevel();
-
-	//* @param Stress Level: This is the amount to change the players stress level by. it can be either positive or negetive. 
-	UFUNCTION (BlueprintCallable, Category = "Stress")
-	void UpdateCurrentStressLevel();
-
-	UFUNCTION(BlueprintCallable, Category = "Awkwardness")
-	void UpdateCurrentAwkwardnessLevel();
-
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//** STRESS O'METER **//
-	//The Players initial stress level
-	UPROPERTY(EditAnywhere, Category = "Stress")
-	float InitialStressLevel;
-
-	void calculatePercievedAmbientLoudness();
-
-	//The players current stress level
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
-	float CurrentStressLevel;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
-	float CurrentAwkwardnessLevel;
-
+	//////////////////////////////
+	// ===== STRESS O'METER =====
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float percievedAmbientLoudness;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float CurrentStressLevel = 10.;  // [0, 100]
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float CurrentAwkwardnessLevel = 10.;  // [0, 100]
+
+	UFUNCTION(BlueprintCallable, Category = "Stress")
+	void calculatePercievedAmbientLoudness();
+
+	UFUNCTION(BlueprintCallable, Category = "Stress")
+	void UpdateCurrentStressLevel();
+
+	UFUNCTION(BlueprintCallable, Category = "Stress")
+	void UpdateCurrentAwkwardnessLevel();
 
 	//////////////////////////////
 	// ===== WATCH MECHANICS =====
 	void CheckWatchStart();
-
 	void CheckWatchStop();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
-		bool checkingWatch;
+	bool checkingWatch;
 
 	/////////////////////////////////
 	// ===== MOVEMENT MECHANICS =====
 	void MoveForward(float Value);
-
 	void MoveRight(float Value);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Movement: Walking")
@@ -82,12 +61,6 @@ public:
 	float walkSpeed = 400;
 	
 	void SprintStart();
-
 	void SprintStop();
-
 	bool sprinting;
-
-
-
-
 };
