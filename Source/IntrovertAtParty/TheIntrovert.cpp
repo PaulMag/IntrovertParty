@@ -17,7 +17,8 @@ ATheIntrovert::ATheIntrovert()
 	CurrentStressLevel = InitialStressLevel;
 	// Various variables
 	checkingWatch = false;
-
+	objectiveCanInteract = false;
+	didJustInteract = false;
 }
 
 // Called when the game starts or when spawned
@@ -56,6 +57,7 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("CheckWatch", IE_Pressed, this, &ATheIntrovert::CheckWatchStart);
 	PlayerInputComponent->BindAction("CheckWatch", IE_Released, this, &ATheIntrovert::CheckWatchStop);
 
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ATheIntrovert::InteractWithObjective);
 	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATheIntrovert::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ATheIntrovert::MoveRight);
@@ -95,6 +97,20 @@ void ATheIntrovert::CheckWatchStop()
 	// DEBUG!
 	//if (GEngine)
 	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::Printf(TEXT("NO WATCH")));
+}
+
+void ATheIntrovert::InteractWithObjective()
+{
+	if (objectiveCanInteract)
+	{
+		didJustInteract = true;
+	}
+	else
+	{
+		didJustInteract = false;
+	}
+
+	objectiveCanInteract = false;
 }
 
 void ATheIntrovert::SprintStart()

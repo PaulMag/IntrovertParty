@@ -68,8 +68,18 @@ public:
 
 	void CheckWatchStop();
 
+	void InteractWithObjective();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
 		bool checkingWatch;
+
+	///////////////////////////////////
+	// ===== OBJECTIVE MECHANICS =====
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		bool objectiveCanInteract;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		bool didJustInteract;
 
 	/////////////////////////////////
 	// ===== MOVEMENT MECHANICS =====
