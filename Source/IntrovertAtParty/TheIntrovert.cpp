@@ -4,6 +4,9 @@
 #include "Runtime/Engine/Classes/Components/InputComponent.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+
+
 // Sets default values
 ATheIntrovert::ATheIntrovert()
 {
