@@ -13,5 +13,48 @@ UCLASS()
 class INTROVERTATPARTY_API AIntrovertAtPartyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+	AIntrovertAtPartyGameModeBase();
+
+	void Tick(float DeltaSeconds);
+
+public:
+	///////////////////////////////
+	// ==========|TIME|===========
+
+	void incrementTime(float DeltaSeconds);
+
+	float timeScale;
+
+	float maxHours;
+
+	float seconds;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Time")
+		float minutes;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Time")
+		float hours;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Time")
+		FString stringMinutes;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Time")
+		FString stringHours;
+
+	///////////////////////////////////////
+	// ==========|Goal System|===========
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasCalled;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasUsedBathroom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasReturnedComic;
+
+	///////////////////////////////////////
+	// ==========|Game Systems|===========
+
+	bool gameOver;
 };
