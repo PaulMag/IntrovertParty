@@ -2,3 +2,9 @@
 
 #include "NPCPawn.h"
 
+
+// Called to bind functionality to input
+void ANPCPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}

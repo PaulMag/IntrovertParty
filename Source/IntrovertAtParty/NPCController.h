@@ -19,7 +19,11 @@ class INTROVERTATPARTY_API ANPCController : public AAIController
 	
 public:
 	ANPCPawn* pawn;
-	ABaseCharacter* targetCurrent;
+	ABaseCharacter* targetActor;
+	FVector target;
 
 	virtual void BeginPlay() override;
+	void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) override;
+
+	void paceToRandomPoint();
 };

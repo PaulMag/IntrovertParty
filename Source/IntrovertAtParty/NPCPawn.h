@@ -18,4 +18,6 @@ class INTROVERTATPARTY_API ANPCPawn : public ABaseCharacter
 
 public:
 	ANPCController* controller;  // is set by the controller itself
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
