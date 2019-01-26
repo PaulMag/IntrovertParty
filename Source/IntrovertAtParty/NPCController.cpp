@@ -37,17 +37,18 @@ void ANPCController::paceToRandomPoint()
 {
 	if (FMath::RandRange(0.f, 100.f) < 50.)
 	{
-		target.X = FMath::RandRange(-1000.f, 1000.f);
-		target.Y = FMath::RandRange(-1000.f, 1000.f);
-		//target += pawn->GetActorLocation();
+		target.X = FMath::RandRange(-2000.f, 2000.f);
+		target.Y = FMath::RandRange(-2000.f, 2000.f);
 	}
 	else
 	{
+		int charIndex = FMath::RandRange(0, allCharacters.Num()-1);
+		targetCharacter = allCharacters[charIndex];
 		float direction = FMath::RandRange(0.f, 2 * PI);
-		float distance = FMath::RandRange(100.f, 1000.f);
+		float distance = FMath::RandRange(150.f, 250.f);
 		target.X = cos(direction) * distance;
 		target.Y = sin(direction) * distance;
-		//target += pawn->GetActorLocation();
+		target += targetCharacter->GetActorLocation();
 	}
 	UE_LOG(LogTemp, Warning, TEXT("NPC: Move started to (%f, %f)"), target.X, target.Y);
 	MoveToLocation(target, 100.);

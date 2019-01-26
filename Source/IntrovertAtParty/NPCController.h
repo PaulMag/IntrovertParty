@@ -20,7 +20,7 @@ class INTROVERTATPARTY_API ANPCController : public AAIController
 public:
 	ANPCPawn* pawn;
 	TArray<ABaseCharacter*> allCharacters;
-	ABaseCharacter* targetActor;
+	ABaseCharacter* targetCharacter;
 	FVector target;
 	FTimerHandle moveTimerHandle;
 
