@@ -41,6 +41,7 @@ void ATheIntrovert::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	calculatePercievedAmbientLoudness();
 	UpdateCurrentStressLevel();
 	UpdateCurrentAwkwardnessLevel();
 }
@@ -63,6 +64,18 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
+}
+
+void ATheIntrovert::calculatePercievedAmbientLoudness()
+{
+	float loudness = 0;
+	float distance;
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		loudness += allNPCs[i]->loudness / distance;
+	}
+	percievedAmbientLoudness = loudness;
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -142,16 +155,7 @@ float ATheIntrovert::GetCurrentStressLevel()
 
 void ATheIntrovert::UpdateCurrentStressLevel()
 {
-	float deltaStress = 0;
-	float distance;
-
-	for (int i=0; i<allNPCs.Num(); i++)
-	{
-		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
-		deltaStress += allNPCs[i]->loudness / distance;
-	}
-
-	CurrentStressLevel += deltaStress * GetWorld()->DeltaTimeSeconds;
+	CurrentStressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds;
 }
 
 void ATheIntrovert::UpdateCurrentAwkwardnessLevel()

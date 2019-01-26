@@ -50,6 +50,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Stress")
 	float InitialStressLevel;
 
+	void calculatePercievedAmbientLoudness();
+
 	//The players current stress level
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float CurrentStressLevel;
@@ -57,6 +59,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float CurrentAwkwardnessLevel;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float percievedAmbientLoudness;
 
 	//////////////////////////////
 	// ===== WATCH MECHANICS =====
