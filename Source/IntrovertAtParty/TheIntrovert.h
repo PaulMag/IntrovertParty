@@ -36,7 +36,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -49,4 +49,32 @@ private:
 	//The players current stress level
 	UPROPERTY(EditAnywhere, Category = "Stress")
 	float CurrentStressLevel;
+	//////////////////////////////
+	// ===== WATCH MECHANICS =====
+	void CheckWatchStart();
+
+	void CheckWatchStop();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		bool checkingWatch;
+
+	/////////////////////////////////
+	// ===== MOVEMENT MECHANICS =====
+	void MoveForward(float Value);
+
+	void MoveRight(float Value);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Movement: Walking")
+	float SprintSpeedMultiplier = 2.0f;
+	float walkSpeed = 400;
+	
+	void SprintStart();
+
+	void SprintStop();
+
+	bool sprinting;
+
+
+
+
 };
