@@ -103,7 +103,7 @@ void ATheIntrovert::MoveForward(float Value)
 		{
 			Value *= 1;
 		}
-		AddActorLocalOffset(FVector(Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0, 0));
+		AddActorLocalOffset(FVector(Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0, 0), true);
 	}
 }
 
@@ -115,7 +115,7 @@ void ATheIntrovert::MoveRight(float Value)
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
 		// Add movement in decided direction
-		AddActorLocalOffset(FVector(0, Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0));
+		AddActorLocalOffset(FVector(0, Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0), true);
 	}
 }
 

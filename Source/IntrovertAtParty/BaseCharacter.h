@@ -14,10 +14,8 @@ class INTROVERTATPARTY_API ABaseCharacter : public ACharacter
 public:
 	ABaseCharacter();
 
-protected:
 	virtual void BeginPlay() override;
 
-public:	
 	float speedMax = 200.;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
