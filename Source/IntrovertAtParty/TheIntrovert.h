@@ -34,4 +34,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//////////////////////////////
+	// ===== WATCH MECHANICS =====
+	void CheckWatchStart();
+
+	void CheckWatchStop();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		bool checkingWatch;
+
+
 };
