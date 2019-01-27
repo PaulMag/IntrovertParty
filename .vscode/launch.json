@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "IntrovertAtParty (Debug)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtParty Win64 Debug Build",
+			"program": "D:\\GGJ2019\\IntrovertParty\\Binaries\\Win64\\IntrovertAtParty-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtParty (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtParty Win64 DebugGame Build",
+			"program": "D:\\GGJ2019\\IntrovertParty\\Binaries\\Win64\\IntrovertAtParty-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtParty (Development)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtParty Win64 Development Build",
+			"program": "D:\\GGJ2019\\IntrovertParty\\Binaries\\Win64\\IntrovertAtParty.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtParty (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtParty Win64 Shipping Build",
+			"program": "D:\\GGJ2019\\IntrovertParty\\Binaries\\Win64\\IntrovertAtParty-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtParty (Test)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtParty Win64 Test Build",
+			"program": "D:\\GGJ2019\\IntrovertParty\\Binaries\\Win64\\IntrovertAtParty-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtPartyEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtPartyEditor Win64 Debug Build",
+			"program": "D:\\UE_4.21\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"D:\\GGJ2019\\IntrovertParty\\IntrovertAtParty.uproject"
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtPartyEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtPartyEditor Win64 DebugGame Build",
+			"program": "D:\\UE_4.21\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"D:\\GGJ2019\\IntrovertParty\\IntrovertAtParty.uproject"
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "IntrovertAtPartyEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "IntrovertAtPartyEditor Win64 Development Build",
+			"program": "D:\\UE_4.21\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"D:\\GGJ2019\\IntrovertParty\\IntrovertAtParty.uproject"
+			],
+			"cwd": "D:\\UE_4.21",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.21\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "D:\\UE_4.21\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=\"D:\\GGJ2019\\IntrovertParty\\IntrovertAtParty.uproject\"",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "D:\\UE_4.21"
+		}
+	]
+}

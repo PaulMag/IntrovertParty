@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"D:/GGJ2019/IntrovertParty/.git": true,
+		"D:/GGJ2019/IntrovertParty/.vs": true,
+		"D:/GGJ2019/IntrovertParty/.vscode": true,
+		"D:/GGJ2019/IntrovertParty/Content": true,
+		"D:/GGJ2019/IntrovertParty/Intermediate": true,
+		"D:/GGJ2019/IntrovertParty/Saved": true
+	}
+}
