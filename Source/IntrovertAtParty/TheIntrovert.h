@@ -50,6 +50,9 @@ public:
 	float awkwardnessLevel = 10.;  // [0, 100]
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float socialnessLevel = 10.;  // [0, 100]
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float percievedAmbientLoudness;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
