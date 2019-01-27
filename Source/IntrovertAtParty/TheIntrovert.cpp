@@ -71,6 +71,7 @@ void ATheIntrovert::CheckWatchStart()
 {	
 	checkingWatch = true;
 	
+	awkwardnessLevel += 3 * visibilityHighest * 200;
 	// DEBUG!
 	//if (GEngine)
 	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Blue, FString::Printf(TEXT("WATCH")));
