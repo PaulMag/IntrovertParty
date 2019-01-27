@@ -157,6 +157,18 @@ void ATheIntrovert::calculatePercievedAmbientLoudness()
 	percievedAmbientLoudness = loudness;
 }
 
+/*void ATheIntrovert::CalculateSocialInteraction()
+{
+	float socialness = 0;
+	float distance;
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		socialness += allNPCs[i]->socialness / distance;
+	}
+	socialInteraction = socialness;
+}*/
+
 void ATheIntrovert::UpdateCurrentStressLevel()
 {
 	stressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds * 100;
@@ -166,5 +178,10 @@ void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 {
 	awkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
 }
+
+/*void ATheIntrovert::UpdateCurrentSocialInteraction()
+{
+	stressLevel += socialInteraction * GetWorld()->DeltaTimeSeconds * 100;
+}*/
 
 

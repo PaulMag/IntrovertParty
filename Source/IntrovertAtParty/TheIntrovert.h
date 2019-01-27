@@ -51,6 +51,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
 	float percievedAmbientLoudness;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stress")
+	float socialInteraction;
+
 	//////////////////////////////
 	// ===== WATCH MECHANICS =====
 	void CheckWatchStart();
