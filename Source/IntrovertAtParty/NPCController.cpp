@@ -25,7 +25,8 @@ void ANPCController::BeginPlay()
 		allCharacters.Add(foundActor);
 	}
 
-	paceToRandomPoint();
+	float waitTime = FMath::RandRange(0.f, 5.f);
+	GetWorldTimerManager().SetTimer(moveTimerHandle, this, &ANPCController::paceToRandomPoint, waitTime, false);
 }
 
 void ANPCController::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult & Result)

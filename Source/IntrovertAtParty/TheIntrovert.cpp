@@ -13,8 +13,6 @@ ATheIntrovert::ATheIntrovert()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	InitialStressLevel = 10.f;
-	CurrentStressLevel = InitialStressLevel;
 	// Various variables
 	checkingWatch = false;
 	objectiveCanInteract = false;
@@ -66,18 +64,6 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
-}
-
-void ATheIntrovert::calculatePercievedAmbientLoudness()
-{
-	float loudness = 0;
-	float distance;
-	for (int i = 0; i < allNPCs.Num(); i++)
-	{
-		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
-		loudness += allNPCs[i]->loudness / distance;
-	}
-	percievedAmbientLoudness = loudness;
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -159,24 +145,26 @@ void ATheIntrovert::MoveRight(float Value)
 }
 
 //** Stress O'Meter **//
-float ATheIntrovert::GetInitialStressLevel()
+void ATheIntrovert::calculatePercievedAmbientLoudness()
 {
-	return InitialStressLevel;
-}
-
-float ATheIntrovert::GetCurrentStressLevel()
-{
-	return CurrentStressLevel;
+	float loudness = 0;
+	float distance;
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		loudness += allNPCs[i]->loudness / distance;
+	}
+	percievedAmbientLoudness = loudness;
 }
 
 void ATheIntrovert::UpdateCurrentStressLevel()
 {
-	CurrentStressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds;
+	stressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds * 100;
 }
 
 void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 {
-	CurrentAwkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
+	awkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
 }
 
 
