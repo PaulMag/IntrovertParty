@@ -24,6 +24,8 @@ public:
 
 	void incrementTime(float DeltaSeconds);
 
+	void updatePromptText();
+
 	float timeScale;
 
 	float maxHours;
@@ -57,16 +59,10 @@ public:
 		bool hasLeft;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
-		FString callPrompt = "Call a friend! Before it's too late!";
+		FString promptText;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
-		FString bathroomPrompt = "You really have to go!";
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
-		FString returnComicPrompt = "Return comic book to your best (most awkward) buddy!";
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
-		FString leavePrompt = "Leave the party, before somebody mistakenly thinks you're cool!";
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		int objectiveType = 0;
 
 	///////////////////////////////////////
 	// ==========|Game Systems|===========

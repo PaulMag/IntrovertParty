@@ -75,6 +75,7 @@ public:
 
 	///////////////////////////////////
 	// ===== OBJECTIVE MECHANICS =====
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
 		bool objectiveCanInteract;
 

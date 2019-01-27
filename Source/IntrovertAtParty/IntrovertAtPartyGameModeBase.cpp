@@ -12,7 +12,8 @@ AIntrovertAtPartyGameModeBase::AIntrovertAtPartyGameModeBase()
 	// Variables.
 	gameOver = false;
 	timeScale = 100;
-	
+	promptText = " ";
+
 	// When the party/game ends.
 	maxHours = 4;
 
@@ -26,6 +27,8 @@ void AIntrovertAtPartyGameModeBase::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	incrementTime(DeltaSeconds);
+
+	updatePromptText();
 }
 
 void AIntrovertAtPartyGameModeBase::incrementTime(float DeltaSeconds)
@@ -81,3 +84,26 @@ void AIntrovertAtPartyGameModeBase::incrementTime(float DeltaSeconds)
 	//if (GEngine)
 	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Hours: %f, Minutes: %f"), hours, minutes));
 }
+
+void AIntrovertAtPartyGameModeBase::updatePromptText()
+{	
+	switch (objectiveType)
+	{
+	case 1:
+		promptText = "You've really got to go! (Hint: Don't pee on the floor!)";
+		break;
+	case 2:
+		promptText = "Call for (HELP) a ride home!";
+		break;
+	case 3:
+		promptText = "Return comic book to your best (most awkward) buddy!";
+		break;
+	case 4:
+		promptText = "Leave the party, before somebody mistakenly thinks you're cool!";
+		break;
+	default:
+		promptText = "ERROR - WRONG TEXT!!!";
+		break;
+	}
+}
+
