@@ -164,7 +164,7 @@ void ATheIntrovert::UpdateCurrentStressLevel()
 	stressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds * 100;
 }
 
-void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
+void ATheIntrovert::UpdateCurrentAwkwardnessLevel()  // also socialness
 {
 	FVector direction;
 	float distanceMin = 1e6;
@@ -206,4 +206,7 @@ void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 	visibilityTotal = visibilitySum;
 	visibilityHighest = sightMax;
 	UE_LOG(LogTemp, Warning, TEXT("visibility=%f, max=%f"), visibilityTotal, visibilityHighest);
+
+	// socialness meter
+	socialnessLevel += 1. / pow(distanceMin, 2) * GetWorld()->DeltaTimeSeconds * 10000;
 }
