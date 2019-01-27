@@ -165,26 +165,44 @@ void ATheIntrovert::UpdateCurrentStressLevel()
 
 void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 {
-	// find closest NPC
+	FVector direction;
 	float distanceMin = 1e6;
 	float distance;
+	float visibilitySum = 0;
+	float sightMax = 0;
 	ANPCPawn* closestNPC = allNPCs[0];
+	
 	for (int i = 0; i < allNPCs.Num(); i++)
 	{
 		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
-		if (distance < distanceMin) {
+		// Find closest NPC
+		if (distance < distanceMin)
+		{
 			distanceMin = distance;
 			closestNPC = allNPCs[i];
 		}
+		// Find vision of this NPC
+		direction = (GetActorLocation() - allNPCs[i]->GetActorLocation()).GetSafeNormal();
+		float sightratio = FVector::DotProduct(direction, allNPCs[i]->GetActorForwardVector());
+		if (sightratio > 0)
+		{
+			sightratio = sightratio / distance;
+			visibilitySum += sightratio;
+			if (sightratio > sightMax) {
+				sightMax = sightratio;
+			}
+		}
 	}
-	FVector direction = (closestNPC->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+	direction = (closestNPC->GetActorLocation() - GetActorLocation()).GetSafeNormal();
 	FVector deltaLocation = GetActorLocation() - previousLocation;
 	float badness = - FVector::DotProduct(direction, deltaLocation) / pow(distanceMin, 1.5) * 4000;
 	if (badness < 0) {
 		badness = 0;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("badness=%f, dMin=%f, vX=%f, vY=%f, dirX=%f, dirY=%f"), badness, distanceMin, deltaLocation.X, deltaLocation.Y, direction.X, direction.Y);
 	previousLocation = GetActorLocation();
 
 	awkwardnessLevel += badness * GetWorld()->DeltaTimeSeconds;
+	visibilityTotal = visibilitySum;
+	visibilityHighest = sightMax;
+	UE_LOG(LogTemp, Warning, TEXT("visibility=%f, max=%f"), visibilityTotal, visibilityHighest);
 }
