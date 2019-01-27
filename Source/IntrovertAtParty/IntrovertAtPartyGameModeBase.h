@@ -24,6 +24,8 @@ public:
 
 	void incrementTime(float DeltaSeconds);
 
+	void updatePromptText();
+
 	float timeScale;
 
 	float maxHours;
@@ -53,8 +55,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
 		bool hasReturnedComic;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasLeft;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
+		FString promptText;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actions")
+		int objectiveType = 0;
+
 	///////////////////////////////////////
 	// ==========|Game Systems|===========
-
-	bool gameOver;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool gameOver;
 };
