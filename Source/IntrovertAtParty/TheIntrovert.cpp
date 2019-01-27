@@ -12,7 +12,8 @@ ATheIntrovert::ATheIntrovert()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	previousLocation = GetActorLocation();
+	
 	// Various variables
 	checkingWatch = false;
 	objectiveCanInteract = false;
@@ -164,7 +165,26 @@ void ATheIntrovert::UpdateCurrentStressLevel()
 
 void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 {
-	awkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
+	// find closest NPC
+	float distanceMin = 1e6;
+	float distance;
+	ANPCPawn* closestNPC = allNPCs[0];
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		if (distance < distanceMin) {
+			distanceMin = distance;
+			closestNPC = allNPCs[i];
+		}
+	}
+	FVector direction = (closestNPC->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+	FVector deltaLocation = GetActorLocation() - previousLocation;
+	float badness = - FVector::DotProduct(direction, deltaLocation) / pow(distanceMin, 1.5) * 4000;
+	if (badness < 0) {
+		badness = 0;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("badness=%f, dMin=%f, vX=%f, vY=%f, dirX=%f, dirY=%f"), badness, distanceMin, deltaLocation.X, deltaLocation.Y, direction.X, direction.Y);
+	previousLocation = GetActorLocation();
+
+	awkwardnessLevel += badness * GetWorld()->DeltaTimeSeconds;
 }
-
-

@@ -17,6 +17,7 @@ class INTROVERTATPARTY_API ATheIntrovert : public ACharacter
 
 public:
 	TArray<ANPCPawn*> allNPCs;
+	FVector previousLocation;
 
 	ATheIntrovert();
 
