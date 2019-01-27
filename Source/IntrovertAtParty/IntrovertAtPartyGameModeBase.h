@@ -53,8 +53,23 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
 		bool hasReturnedComic;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool hasLeft;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
+		FString callPrompt = "Call a friend! Before it's too late!";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
+		FString bathroomPrompt = "You really have to go!";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
+		FString returnComicPrompt = "Return comic book to your best (most awkward) buddy!";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals - Text")
+		FString leavePrompt = "Leave the party, before somebody mistakenly thinks you're cool!";
+
 	///////////////////////////////////////
 	// ==========|Game Systems|===========
-
-	bool gameOver;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Goals")
+		bool gameOver;
 };

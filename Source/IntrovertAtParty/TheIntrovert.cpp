@@ -13,9 +13,12 @@ ATheIntrovert::ATheIntrovert()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	InitialStressLevel = 10.f;
+	CurrentStressLevel = InitialStressLevel;
 	// Various variables
 	checkingWatch = false;
-
+	objectiveCanInteract = false;
+	didJustInteract = false;
 }
 
 // Called when the game starts or when spawned
@@ -54,6 +57,8 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("CheckWatch", IE_Pressed, this, &ATheIntrovert::CheckWatchStart);
 	PlayerInputComponent->BindAction("CheckWatch", IE_Released, this, &ATheIntrovert::CheckWatchStop);
 
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ATheIntrovert::InteractWithObjective);
+	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATheIntrovert::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ATheIntrovert::MoveRight);
 
@@ -61,6 +66,18 @@ void ATheIntrovert::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ATheIntrovert::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ATheIntrovert::SprintStop);
+}
+
+void ATheIntrovert::calculatePercievedAmbientLoudness()
+{
+	float loudness = 0;
+	float distance;
+	for (int i = 0; i < allNPCs.Num(); i++)
+	{
+		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
+		loudness += allNPCs[i]->loudness / distance;
+	}
+	percievedAmbientLoudness = loudness;
 }
 
 void ATheIntrovert::CheckWatchStart()
@@ -80,6 +97,20 @@ void ATheIntrovert::CheckWatchStop()
 	// DEBUG!
 	//if (GEngine)
 	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::Printf(TEXT("NO WATCH")));
+}
+
+void ATheIntrovert::InteractWithObjective()
+{
+	if (objectiveCanInteract)
+	{
+		didJustInteract = true;
+	}
+	else
+	{
+		didJustInteract = false;
+	}
+
+	objectiveCanInteract = false;
 }
 
 void ATheIntrovert::SprintStart()
@@ -119,29 +150,30 @@ void ATheIntrovert::MoveRight(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
+		//Find out which way is right 
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
 		// Add movement in decided direction
 		AddActorLocalOffset(FVector(0, Value * GetWorld()->DeltaTimeSeconds *walkSpeed, 0), true);
 	}
 }
 
-//////////////////////////////
-// ===== STRESS O'METER =====
-void ATheIntrovert::calculatePercievedAmbientLoudness()
+//** Stress O'Meter **//
+float ATheIntrovert::GetInitialStressLevel()
 {
-	float loudness = 0;
-	float distance;
-	for (int i = 0; i < allNPCs.Num(); i++)
-	{
-		distance = (allNPCs[i]->GetActorLocation() - GetActorLocation()).Size();
-		loudness += allNPCs[i]->loudness / distance;
-	}
-	percievedAmbientLoudness = loudness;
+	return InitialStressLevel;
+}
+
+float ATheIntrovert::GetCurrentStressLevel()
+{
+	return CurrentStressLevel;
 }
 
 void ATheIntrovert::UpdateCurrentStressLevel()
 {
-	CurrentStressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds * 100;
+	CurrentStressLevel += percievedAmbientLoudness * GetWorld()->DeltaTimeSeconds;
 }
+
 void ATheIntrovert::UpdateCurrentAwkwardnessLevel()
 {
 	CurrentAwkwardnessLevel += 0.5 * GetWorld()->DeltaTimeSeconds;
